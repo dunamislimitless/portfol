@@ -20,9 +20,16 @@ body {
   background:
     radial-gradient(900px 480px at 100% -10%, #243028 0%, transparent 55%),
     var(--paper);
+  background-size: 140% 140%, auto;
   font-family: var(--font-sans);
   line-height: 1.5;
   color-scheme: dark;
+  animation: glow 14s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { background-position: 100% -10%, 0 0; }
+  to { background-position: 70% 0, 0 0; }
 }
 
 a { color: var(--green); font-weight: 600; text-decoration: none; }

@@ -17,6 +17,11 @@ type Repo = {
 
 const filters: Filter[] = ["All", "Mobile", "Cloud"];
 
+const rise = {
+  hidden: { opacity: 0, y: 16 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.35 } },
+};
+
 export default function Portfolio() {
   const [filter, setFilter] = useState<Filter>("All");
   const [selected, setSelected] = useState<Project>(projects[0]);
@@ -86,10 +91,12 @@ export default function Portfolio() {
         <a href={profile.github}>{profile.github.replace("https://", "")}</a>
       </header>
 
-      <h1>{profile.name}</h1>
-      <p className="lede">
+      <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.45 }}>
+        {profile.name}
+      </motion.h1>
+      <motion.p className="lede" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.15 }}>
         I build mobile apps with Flutter and Dart. Filter the work below, open a project, and search the live list of public repositories on GitHub.
-      </p>
+      </motion.p>
 
       <section className="facts">
         {[
@@ -164,7 +171,7 @@ export default function Portfolio() {
               </button>
             ))}
           </div>
-          <div className="grid">
+          <motion.div className="grid" initial="hidden" animate="show" variants={{ show: { transition: { staggerChildren: 0.07 } } }}>
             <AnimatePresence mode="popLayout">
               {visible.map((project) => (
                 <motion.button
@@ -172,9 +179,13 @@ export default function Portfolio() {
                   key={project.title}
                   type="button"
                   onClick={() => setSelected(project)}
-                  initial={false}
-                  exit={{ opacity: 0 }}
-                  whileHover={{ y: -3 }}
+                  variants={rise}
+                  initial="hidden"
+                  animate="show"
+                  exit={{ opacity: 0, y: 8 }}
+                  whileHover={{ y: -4 }}
+                  whileTap={{ scale: 0.99 }}
+                  layout
                 >
                   <div className="meta">
                     <span>{project.kind}</span>
@@ -185,13 +196,14 @@ export default function Portfolio() {
                 </motion.button>
               ))}
             </AnimatePresence>
-          </div>
+          </motion.div>
           <AnimatePresence mode="wait">
             <motion.article
               key={selected.title}
               className="detail"
-              initial={false}
-              exit={{ opacity: 0 }}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
               transition={{ duration: 0.25 }}
             >
               <p className="kicker">{selected.kind}</p>
@@ -224,7 +236,15 @@ export default function Portfolio() {
           <div className="repos">
             <AnimatePresence mode="popLayout">
               {shownRepos.map((repo) => (
-                <motion.article key={repo.id} className="repo" initial={false} exit={{ opacity: 0 }}>
+                <motion.article
+                  key={repo.id}
+                  className="repo"
+                  variants={rise}
+                  initial="hidden"
+                  animate="show"
+                  exit={{ opacity: 0 }}
+                  whileHover={{ y: -3 }}
+                >
                   <h3>{repo.name}</h3>
                   <p>{repo.description || repo.language || "Public repository"}</p>
                   <a href={repo.html_url}>Open repository</a>
