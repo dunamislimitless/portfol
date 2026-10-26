@@ -12,6 +12,7 @@ export type Project = {
 export const profile = {
   name: "Samuel Ogundoju",
   also: "Dunamis",
+  appName: "dunamis pf",
   gender: "Male",
   date: "26 October 2026",
   place: "Lagos, Nigeria",

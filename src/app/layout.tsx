@@ -13,8 +13,8 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  title: "Samuel Ogundoju",
-  description: "Portfolio of Samuel Ogundoju, a Flutter and Dart developer in Lagos.",
+  title: "dunamis pf",
+  description: "dunamis pf, the portfolio of Samuel Ogundoju, a Flutter and Dart developer in Lagos.",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
